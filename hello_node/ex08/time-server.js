@@ -3,15 +3,15 @@
 
 const net = require('net');
 if (process.argv.length !== 3) {
-    console.error('usage: node time-server.js port');
-    process.exit(1);
+  console.error('usage: node time-server.js port');
+  process.exit(1);
 }
 const port = process.argv[2];
 
 const server = net.createServer((socket) => {
-  
+
   const currentDate = new Date();
-    
+
   const formattedDate = currentDate.toISOString().slice(0, 16).replace('T', ' ');
 
   //iso stands for International Organization for Standardization

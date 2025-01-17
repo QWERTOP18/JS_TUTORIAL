@@ -18,51 +18,50 @@ if (process.argv.length !== 3) {
 }
 
 const server = client.createServer((req, res) => {
-const parsedUrl = url.parse(req.url, true);
+    const parsedUrl = url.parse(req.url, true);
 
-res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'application/json');
 
-if (parsedUrl.pathname === '/api/parsetime' && parsedUrl.query.iso) {
+    if (parsedUrl.pathname === '/api/parsetime' && parsedUrl.query.iso) {
 
-    const isoDate = new Date(parsedUrl.query.iso);
+        const isoDate = new Date(parsedUrl.query.iso);
 
-    if (isoDate.getTime()) {
-        const response = {
-        hour: isoDate.getHours(),
-        minute: isoDate.getMinutes(),
-        second: isoDate.getSeconds(),
-        };
-        
-        res.statusCode = 200;
-        res.end(JSON.stringify(response) + '\n');
+        if (isoDate.getTime()) {
+            const response = {
+                hour: isoDate.getHours(),
+                minute: isoDate.getMinutes(),
+                second: isoDate.getSeconds(),
+            };
+
+            res.statusCode = 200;
+            res.end(JSON.stringify(response) + '\n');
+        } else {
+            res.statusCode = 400;
+            res.end(JSON.stringify({ error: 'Invalid ISO date format' }) + '\n');
+        }
+    } else if (parsedUrl.pathname === '/api/unixtime' && parsedUrl.query.iso) {
+
+        const isoDate = new Date(parsedUrl.query.iso);
+
+        if (isoDate.getTime()) {
+            const response = {
+                unixtime: isoDate.getTime(),
+            };
+
+            res.statusCode = 200;
+            res.end(JSON.stringify(response) + '\n');
+        } else {
+            res.statusCode = 400;
+            res.end(JSON.stringify({ error: 'Invalid ISO date format' }) + '\n');
+        }
     } else {
-        res.statusCode = 400;
-        res.end(JSON.stringify({ error: 'Invalid ISO date format' }) + '\n');
+        res.statusCode = 404;
+        res.end(JSON.stringify({ error: 'Not Found' }) + '\n');
     }
-} else if (parsedUrl.pathname === '/api/unixtime' && parsedUrl.query.iso) {
-
-    const isoDate = new Date(parsedUrl.query.iso);
-
-    if (isoDate.getTime()) {
-        const response = {
-        unixtime: isoDate.getTime(),
-        };
-        
-        res.statusCode = 200;
-        res.end(JSON.stringify(response) + '\n');
-    } else {
-        res.statusCode = 400;
-        res.end(JSON.stringify({ error: 'Invalid ISO date format' }) + '\n');
-    }
-} else {
-// If the URL path is not recognized, return a 404
-res.statusCode = 404;
-res.end(JSON.stringify({ error: 'Not Found' }) + '\n');
-}
 });
 
 
 const port = process.argv[2] || 8080;
 server.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+    console.log(`Server is listening on port ${port}`);
 });

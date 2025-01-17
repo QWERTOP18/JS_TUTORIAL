@@ -1,14 +1,12 @@
 const fs = require('fs');
 
 
-if (process.argv.length !== 3) 
-{
-  console.log('usage: node io.js file');
+if (process.argv.length !== 3) {
+    console.log('usage: node io.js file');
 }
-else
-{
+else {
     const filePath = process.argv[2];
-    
+
     let fileContent;
     // try 
     // {
@@ -21,10 +19,8 @@ else
     // }
     fileContent = fs.readFileSync(filePath, 'utf8');
     let newlineCount = 0;
-    for (let i = 0; i < fileContent.length; i++) 
-    {
-        if (fileContent[i] === '\n') 
-        {
+    for (let i = 0; i < fileContent.length; i++) {
+        if (fileContent[i] === '\n') {
             newlineCount++;
         }
     }

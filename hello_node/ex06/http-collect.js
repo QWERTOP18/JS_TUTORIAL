@@ -22,7 +22,8 @@ client.get(url, (response) => {
     response.on('error', (err) => {
         console.error('Error:', err);
     });
+
 }).on('error', (err) => {
-console.error('Request Error:', err);
+    console.error('Request Error:', err);
 });
-  
+
