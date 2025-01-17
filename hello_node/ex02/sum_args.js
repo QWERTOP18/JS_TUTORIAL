@@ -11,7 +11,8 @@ else
     for (let i = 2; i < process.argv.length; i++) 
     {
         let num = parseInt(process.argv[i], 10);
-        if (!isNaN(num)) 
+        // if (!isNaN(num)) 
+        if (typeof num === "number" && num === num) 
         {
             sum += num;
         } else 
