@@ -18,7 +18,7 @@ client.get(url, (response) => {
         console.log(data.length);
         console.log(data);
     });
-
+    
     response.on('error', (err) => {
         console.error('Error:', err);
     });
